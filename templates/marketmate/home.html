@@ -1,0 +1,97 @@
+{% extends 'marketmate/base.html' %}
+
+{% block content %}
+    {% load static %}
+<h2 class="page-title">Explore Markets</h2>
+
+<div class="markets-grid">
+    {% for market in markets %}
+    <a href="{% url 'market_detail' market.name|lower %}" class="market-card">
+        <img src="{% static market.image %}" alt="{{ market.name }}" class="market-image">
+        <p class="market-name">{{ market.name }}</p>
+    </a>
+    {% endfor %}
+</div>
+
+<section class="offers-section">
+    <h2 class="section-title">TOP OFFERS</h2>
+    <div class="offers-container">
+        <button onclick="scrollOffers('left')" class="scroll-button scroll-left">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        </button>
+        
+        <div id="offersContainer" class="offers-grid">
+            {% for offer in offers %}
+            <div class="offer-card">
+                <div class="offer-content">
+                    <img src="{{ offer.image }}" alt="{{ offer.title }}" class="offer-image">
+                    <p class="offer-title">{{ offer.title }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <button onclick="scrollOffers('right')" class="scroll-button scroll-right">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18l6-6-6-6"/>
+            </svg>
+        </button>
+    </div>
+</section>
+
+<section class="categories-section">
+    <div class="categories-grid">
+        <a href="{% url 'category' 'pekarna' %}" class="category-card">
+            <span class="category-icon">🥖</span>
+            <span class="category-name">Пекарна</span>
+        </a>
+        <a href="{% url 'category' 'kulinarski_stand' %}" class="category-card">
+            <span class="category-icon">🍲</span>
+            <span class="category-name">Кулинарен щанд</span>
+        </a>
+        <a href="{% url 'category' 'sladkarska_vitrina' %}" class="category-card">
+            <span class="category-icon">🍰</span>
+            <span class="category-name">Сладкарска витрина</span>
+        </a>
+        <a href="{% url 'category' 'mesna_vitrina' %}" class="category-card">
+            <span class="category-icon">🥩</span>
+            <span class="category-name">Месна витрина</span>
+        </a>
+        <a href="{% url 'category' 'riben_stand' %}" class="category-card">
+            <span class="category-icon">🐟</span>
+            <span class="category-name">Рибен щанд</span>
+        </a>
+    </div>
+</section>
+
+<section class="recipes-section">
+    <h2 class="recipes-title">Popular Recipes</h2>
+    <div class="recipes-container">
+        <div class="recipes-grid">
+            {% for recipe in recipes %}
+            <article class="recipe-card">
+                <img src="{{ recipe.image }}" alt="{{ recipe.name }}" class="recipe-image">
+                <div class="recipe-content">
+                    <h3 class="recipe-name">{{ recipe.name }}</h3>
+                    <div class="recipe-details">
+                        <div class="recipe-ingredients">
+                            <i class="fa-solid fa-utensils"></i>
+                            <span>{{ recipe.ingredients }}</span>
+                        </div>
+                        <div class="recipe-difficulty">
+                            <i class="fa-solid fa-shirt"></i>
+                            <span>{{ recipe.difficulty }}</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+            <a href="{% url 'recipes' %}" class="view-more-link">View More Recipes</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
